@@ -22,3 +22,29 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.vcenter {
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+
+#container{
+    background-color:#e8590f;
+    font-size:40pt;
+    width:640px;
+    height:640px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    margin:auto;
+}
+
+.card {
+    width:640px;
+    height:640px;
+    font-size:40pt;
+    font-weight:bold;
+    cursor:pointer;
+    margin:auto;
+}

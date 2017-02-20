@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Memorizer.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,7 +10,7 @@ namespace Memorizer.Controllers
 {
     public class HomeController : Controller
     {
-        Dictionary<string, string> items = new Dictionary<string, string>();
+        List<Item> items = new List<Item>();
         public ActionResult Index()
         {
             GetItem("");
@@ -29,21 +31,28 @@ namespace Memorizer.Controllers
             return View();
         }
 
+        public ActionResult Memorizer()
+        {
+            ViewBag.Message = "Memorise!!!";
+
+            return View();
+        }
+
         public JsonResult GetItem(string id)
         {
             ReadAllItems("~/Resources/words.txt");
             if (String.IsNullOrEmpty(id))
             {
                 Random rnd = new Random();
-                return Json(items.ElementAt(rnd.Next(0, items.Count)));
+                return Json(items.ElementAt(rnd.Next(0, items.Count)), JsonRequestBehavior.AllowGet);
             }
-            return Json(items.First(x => x.Key.Equals(id)));
+            return Json(items.First(x => x.Key.Equals(id)), JsonRequestBehavior.AllowGet);
         }
 
         public void ReadAllItems(string path)
         {
             string line = "";
-            var items = new Dictionary<string, string>();
+            var items = new List<Item>();
 
             var filestream = new System.IO.FileStream(Server.MapPath(path),
                                           System.IO.FileMode.Open,
@@ -54,10 +63,30 @@ namespace Memorizer.Controllers
             while ((line = file.ReadLine()) != null)
             {
                 string[] lineArray = line.Split(';');
-                items.Add(lineArray[0], lineArray[1]);
+                Item item = new Item();
+                item.Key = lineArray[0];
+                item.Value = lineArray[1];
+                items.Add(item);
             }
 
-            this.items = new Dictionary<string, string>(items);
+            this.items = new List<Item>(items);
+        }
+
+        public JsonResult GetAllItems()
+        {
+            ReadAllItems("~/Resources/words.txt");
+            return Json(JsonConvert.SerializeObject(items.Shuffle()), JsonRequestBehavior.AllowGet);
+        }
+    }
+
+    public static class Extensions
+    {
+        public static List<T> Shuffle<T>(
+            this List<T> source)
+        {
+            Random r = new Random();
+            return source.OrderBy(x => r.Next())
+               .ToList();
         }
     }
 }

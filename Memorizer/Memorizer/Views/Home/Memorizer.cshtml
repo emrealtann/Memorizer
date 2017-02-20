@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Memorizer";
+}
+
+<h2>Memorizer</h2>
+<div id="card" class="card">
+    <div class="front vcenter btn-warning">
+        Front content
+    </div>
+    <div class="back vcenter btn-success">
+        Back content
+    </div>
+</div>
+<input type="hidden" id="index" value="0" />
+<button class="btn-primary" id="next">Next!</button>
+
+@section Scripts {
+<script src="https://cdn.rawgit.com/nnattawat/flip/v1.1.2/dist/jquery.flip.min.js"></script>
+<script>
+    var pastItems = [], allItems = [];
+    $(document).ready(function () {
+        getAllItems();
+        //$("#card").on('flip:done', function () {
+            
+        //});
+    });
+
+    function getAllItems() {
+        return $.get('/Home/GetAllItems', function (data) {
+            $.each($.parseJSON(data), function (index, item) {
+                allItems.push(item);
+            });
+            createCard();
+        });
+    }
+
+    $('#next').click(function () {
+        debugger;
+        $('.back').text('');
+        $("#card").flip('toggle');
+        var index = $('#index').val();
+        $('#index').val(parseInt(index) + 1);
+        createCard(parseInt(index) + 1);
+    });
+
+    function createCard() {
+        var index = $('#index').val();
+        $("#card").flip();
+        $('.front').text(allItems[index]["Key"]);
+        $('.back').text(allItems[index]["Value"]);
+    }
+
+    //function tryGetData() {
+    //    counter = 0;
+    //    current = "";
+    //    var getFunc = getItem();
+    //    getFunc.success(function (data) {
+    //        alert(data);
+    //    });
+    //    var currentData = getItem();
+    //    debugger;
+    //    while (pastItems.indexOf(current) != -1) {
+    //        currentData = getItem();
+    //        current = currentData["Key"];
+    //        counter++;
+    //        if (counter >= 15) {
+    //            $('.front').text("No more items left...");
+    //            return;
+    //        }
+    //    }
+
+    //    $('.front').text(currentData["Key"]);
+    //    $('.back').text(currentData["Value"]);
+    //    pastItems.push(currentData["Key"]);
+    //    $("#card").flip();
+    //}
+
+    //function getItem() {
+    //    var g_data;
+    //    debugger;
+    //    return $.get('/Home/GetItem', function (data) {
+    //        debugger;
+    //        g_data = data;
+    //    }, 'json');
+    //    return g_data;
+    //}
+
+    //function getItem() {
+    //    return $.ajax({
+    //        url: '/Home/GetItem'
+    //    });
+    //}
+</script>
+}
+
