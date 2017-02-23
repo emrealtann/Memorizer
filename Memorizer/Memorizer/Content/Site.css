@@ -41,10 +41,27 @@ textarea {
 }
 
 .card {
-    width:640px;
+    /*width:640px;*/
+    width:60%;
     height:640px;
     font-size:40pt;
     font-weight:bold;
     cursor:pointer;
-    margin:auto;
+    /*margin:auto;*/
+    float:left;
+}
+
+.card-nav{
+    visibility:hidden;
+    border:none;
+    z-index:2;
+    position:relative;
+    height:640px;
+    width:20%;
+    float:left;
+    background-color:#fff;
+}
+
+.card-nav:focus{
+    outline: none;
 }
