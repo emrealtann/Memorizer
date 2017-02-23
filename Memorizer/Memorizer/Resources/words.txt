@@ -1,2 +1,22 @@
 ﻿resemble;benzemek
 resent;alınmak
+ratify;onaylamak
+reconcile;uzlaştırmak
+hamper;engellemek
+refute;reddetmek (refuse)
+disprove;(tezi) çürütmek
+endorse;desteklemek, onaylamak
+encumber;engellemek
+divert;yönlendirmek
+entail;gerektirmek, yol açmak
+enhance;artırmak
+disrupt;bozmak
+repel;geri püskürtmek
+diversity;çeşitlendirmek
+account for;hesap vermek, sebebi olmak, izah etmek
+entitle;isimlendirmek, hak etmek
+envisage;öngörmek, kafasında canlandırmak
+intimidate;korkutmak
+relish;tadını çıkarmak
+repent;tövbe etmek, pişman olmak
+initiate;başlatmak, ön ayak olmak
